@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 3cf24e0703269a546a1053f2f0499d44
+timeCreated: 1554906188
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Open Sans Light
+  fontNames:
+  - Open Sans Light
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3bdbb8d5af72d064fa616a618d98c158, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
