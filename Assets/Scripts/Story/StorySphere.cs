@@ -12,15 +12,25 @@ public class StorySphere : MonoBehaviour
 	public string TextForStorySphere;
     [Space]
 	public KeyCode ActionKey = KeyCode.E;
-	public GameObject GameObjectToEnableOnPressedActionKey;
+    [Header("Hvis der er GameObjects der skal enables (f.eks. næste storysphere):")]
+    public List<GameObject> GameObjectToEnableOnPressedActionKey = new List<GameObject>();
+    [Header("Hvis der er GameObjects der skal disables:")]
+    public List<GameObject> GameObjectToDisableOnPressedActionKey = new List<GameObject>();
 	
     public bool EnabledOnStartup = false;
 
 	private bool _playerIsInRange = false;
-	private Canvas _canvas;
+
 	private GameObject _player;
 	private bool _hasBeenDisabled = false;
+
+    [Header("Referencer til dette GameObjects Canvas og Text")]
+    [SerializeField]
+    private Canvas _canvas;
+    [SerializeField]
 	private Text _textChild;
+    [SerializeField]
+    private ParticleSystem _particleSystem;
 
 	private void Awake()
 	{
@@ -29,12 +39,9 @@ public class StorySphere : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-
-		_canvas = GetComponentInChildren<Canvas>();
-		_canvas.GetComponentInChildren<Image>().gameObject.SetActive(true);
-		_canvas.GetComponentInChildren<Text>().gameObject.SetActive(true);
-		_textChild = _canvas.GetComponentInChildren<Text>();
+   
 		_textChild.text = TextForStorySphere;
+        _particleSystem.gameObject.SetActive(true);
 
 		if (EnabledOnStartup == false)
 		{
@@ -43,7 +50,9 @@ public class StorySphere : MonoBehaviour
 		else
 		{
 			_canvas.gameObject.SetActive(true);
-		}
+            _particleSystem.gameObject.SetActive(true);
+
+        }
 	}
 
 	private void OnDrawGizmosSelected()
@@ -51,7 +60,7 @@ public class StorySphere : MonoBehaviour
 		Gizmos.color = Color.red;
 		if (GameObjectToEnableOnPressedActionKey != null)
 		{
-			Gizmos.DrawLine(transform.position, GameObjectToEnableOnPressedActionKey.transform.position);
+			Gizmos.DrawLine(transform.position, GameObjectToEnableOnPressedActionKey[0].transform.position);
 		}
 	}
 
@@ -79,9 +88,28 @@ public class StorySphere : MonoBehaviour
 		{
 			if (GameObjectToEnableOnPressedActionKey != null)
 			{
-				GameObjectToEnableOnPressedActionKey.SetActive(true);
-			}
-			gameObject.SetActive(false);
+
+                    foreach(GameObject g in GameObjectToEnableOnPressedActionKey)
+                    {
+                    if (g != null)
+                    {
+                        g.SetActive(true);
+                    }
+                    }
+                   
+                
+
+                foreach (GameObject g in GameObjectToDisableOnPressedActionKey)
+                {
+                    if (g != null)
+                    {
+                        g.SetActive(false);
+                    }
+                }
+
+
+            }
+            gameObject.SetActive(false);
 		}
 
 	

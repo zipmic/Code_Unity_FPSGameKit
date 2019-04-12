@@ -8,8 +8,8 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private Type SpawnerType = Type.Single;
 
-    public float StartDelay;
-    public float SpawnInterval;
+    public float StartDelay = 2;
+    public float SpawnInterval = 2;
     [Range(1,1000)]
     [Header("Amount to spawn before disabling self")]
     public float AmountToSpawn = 1;
@@ -19,12 +19,20 @@ public class Spawner : MonoBehaviour
 
     private int _amountSpawned;
 
-
-    // Use this for initialization
-    IEnumerator Start () 
+    private void OnEnable()
     {
+        StartCoroutine(Spawn());
+    }
+    // Use this for initialization
+    IEnumerator Spawn () 
+    {
+        if(ObjectToSpawn == null)
+        {
+            Debug.LogError("Du har glemt at sætte et spawn object");
+        }
+
         yield return new WaitForSeconds(StartDelay);
-        while(gameObject.activeSelf)
+        if(gameObject.activeSelf)
         {
             GameObject obj = Instantiate(ObjectToSpawn) as GameObject;
             obj.transform.position = transform.position;
@@ -39,6 +47,7 @@ public class Spawner : MonoBehaviour
                 if (SpawnerType == Type.Multiple)
                 {
                     yield return new WaitForSeconds(SpawnInterval);
+                    StartCoroutine(Spawn());
                 }
                 else if (SpawnerType == Type.Single)
                 {
