@@ -58,7 +58,7 @@ public class StorySphere : MonoBehaviour
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.red;
-		if (GameObjectToEnableOnPressedActionKey != null)
+		if (GameObjectToEnableOnPressedActionKey[0] != null)
 		{
 			Gizmos.DrawLine(transform.position, GameObjectToEnableOnPressedActionKey[0].transform.position);
 		}
