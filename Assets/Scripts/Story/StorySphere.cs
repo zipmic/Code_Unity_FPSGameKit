@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[SelectionBase]
 public class StorySphere : MonoBehaviour
 {
+    [Header("StorySphere options")]
+    [Space]
 	[TextArea]
 	public string TextForStorySphere;
+    [Space]
 	public KeyCode ActionKey = KeyCode.E;
 	public GameObject GameObjectToEnableOnPressedActionKey;
-	public bool EnabledOnStartup = false;
+	
+    public bool EnabledOnStartup = false;
 
 	private bool _playerIsInRange = false;
 	private Canvas _canvas;
